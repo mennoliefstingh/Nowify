@@ -146,7 +146,7 @@ export default {
         .quality(1)
         .clearFilters()
         .getPalette()
-        .then(palette => {
+        .then((palette) => {
           this.handleAlbumPalette(palette)
         })
     },
@@ -172,7 +172,7 @@ export default {
       clearInterval(this.pollPlaying)
       this.pollPlaying = setInterval(() => {
         this.getNowPlaying()
-      }, 2500)
+      }, 1000)
     },
 
     /**
@@ -226,7 +226,7 @@ export default {
       this.playerData = {
         playing: this.playerResponse.is_playing,
         trackArtists: this.playerResponse.item.artists.map(
-          artist => artist.name
+          (artist) => artist.name
         ),
         trackTitle: this.playerResponse.item.name,
         trackId: this.playerResponse.item.id,
@@ -244,10 +244,10 @@ export default {
      */
     handleAlbumPalette(palette) {
       let albumColours = Object.keys(palette)
-        .filter(item => {
+        .filter((item) => {
           return item === null ? null : item
         })
-        .map(colour => {
+        .map((colour) => {
           return {
             text: palette[colour].getTitleTextColor(),
             background: palette[colour].getHex()
@@ -276,7 +276,7 @@ export default {
     /**
      * Watch the auth object returned from Spotify.
      */
-    auth: function(oldVal, newVal) {
+    auth: function (oldVal, newVal) {
       if (newVal.status === false) {
         clearInterval(this.pollPlaying)
       }
@@ -285,14 +285,14 @@ export default {
     /**
      * Watch the returned track object.
      */
-    playerResponse: function() {
+    playerResponse: function () {
       this.handleNowPlaying()
     },
 
     /**
      * Watch our locally stored track data.
      */
-    playerData: function() {
+    playerData: function () {
       this.$emit('spotifyTrackUpdated', this.playerData)
 
       this.$nextTick(() => {
